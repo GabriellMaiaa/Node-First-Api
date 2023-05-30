@@ -15,16 +15,18 @@ const server = http.createServer((req, res) => {
   }
   
   if(method === 'POST' && url === '/users') {
+
+
     users.push({
       id: 1,
       name:'Gabriel Maia',
       idade:19
     })
     
-    return res.end('Criação de usuário')
+    return res.writeHead(201).end('Criação de usuário')
   }
 
-  return res.end('Helouu World')
+  return res.writeHead(404).end()
 })
 
 const port = 3333
