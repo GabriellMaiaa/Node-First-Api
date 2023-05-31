@@ -25,6 +25,7 @@ class OneToHundredStream extends Readable {// STREAM DE LEITURA
   }
 }
 
+
 class MultiplyByTenStream extends Writable {// STREAM DE ESCRITA SOBRE UMA LEITURA
   
   _write(chunk, encoding, callback) {//Chunk - Pega o conteúdo da stream que for usada de parâmetro e executa
