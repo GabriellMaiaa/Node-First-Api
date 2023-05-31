@@ -11,10 +11,17 @@ class InverseNumberStream extends Transform { //Ela transforma pegando o de leit
   }
 }
 
-const server = http.createServer((req, res) => {// Aqui foi criado o servidor onde está pegando os valores do Fetch criado
-  return req //Com a função do numero 1 ao 100
-    .pipe(new InverseNumberStream()) // E invertendo a response que é a funcao OneToHundredStream(), e mostrando com o console acima
-    .pipe(res)
+const server = http.createServer( async (req, res) => {// Aqui foi criado o servidor onde está pegando os valores do Fetch criado
+  const buffers = []
+
+  for await (const chunk of req) {
+    buffers.push(chunk)
+  }
+
+  const fullStreamContent = Buffer.concat(buffers).toString();
+  console.log(fullStreamContent)
+ 
+  return res.end(fullStreamContent)
 })
 
 server.listen(3334)
