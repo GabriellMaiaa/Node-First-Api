@@ -11,6 +11,9 @@ class InverseNumberStream extends Transform { //Ela transforma pegando o de leit
   }
 }
 
+//RES - Readable stream
+//REQ- Writable stream
+
 const server = http.createServer( async (req, res) => {// Aqui foi criado o servidor onde está pegando os valores do Fetch criado
   const buffers = []
 
