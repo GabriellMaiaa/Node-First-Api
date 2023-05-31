@@ -2,7 +2,6 @@ import http from 'http'
 //Rotas são o caminho de entrada na nossa API
 
 //Cabeçalho/Headers - São metadados que ajudam a ver como esse código pode ser interpretado pelo Front End
-
 const users =[]
 
 const server = http.createServer((req, res) => {
