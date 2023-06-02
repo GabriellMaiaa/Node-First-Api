@@ -1,10 +1,11 @@
 import http from 'http'
 import { json } from './middlewares/json.js'
+import { Database } from './database.js'
+
+const database = new Database()
 
 //Rotas são o caminho de entrada na nossa API
-
 //Cabeçalho/Headers - São metadados que ajudam a ver como esse código pode ser interpretado pelo Front End
-const users = []
 
 const server = http.createServer( async (req, res) => {
   const { method, url }  = req
@@ -13,6 +14,8 @@ const server = http.createServer( async (req, res) => {
 
 //A partir daqui começam as rotas
   if(method === 'GET' && url === '/users') {
+    const users = database.select('users')
+
     return res
     .end(JSON.stringify(users))
   }
@@ -20,11 +23,12 @@ const server = http.createServer( async (req, res) => {
   if(method === 'POST' && url === '/users') {
     const { name, email } = req.body// Desestruturação do Body, colocando já o nome e email como variantes por usuário
 
-    users.push({
+    const user = {
       id: 1,
       name,
       email
-    })
+    }
+    database.insert('users', user)
     
     return res.writeHead(201).end('Criação de usuário')// Retornar criação
   }
