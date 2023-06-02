@@ -21,10 +21,8 @@ class OneToHundredStream extends Readable {// STREAM DE LEITURA
       this.push(buf)
     }
    }, 1000)//Com 1 segundo de intervalo para aparecerem os números no terminal
-  
   }
 }
-
 
 class MultiplyByTenStream extends Writable {// STREAM DE ESCRITA SOBRE UMA LEITURA
   
