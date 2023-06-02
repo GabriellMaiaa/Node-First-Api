@@ -2,6 +2,8 @@ import http from 'http'
 import { json } from './middlewares/json.js'
 import { Database } from './database.js'
 
+import { randomUUID } from 'crypto'//LIB qu tem a capacidade de criar IDS aleatórios e únicos
+
 const database = new Database()
 
 //Rotas são o caminho de entrada na nossa API
@@ -24,7 +26,7 @@ const server = http.createServer( async (req, res) => {
     const { name, email } = req.body// Desestruturação do Body, colocando já o nome e email como variantes por usuário
 
     const user = {
-      id: 1,
+      id: randomUUID(),
       name,
       email
     }
