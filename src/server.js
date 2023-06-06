@@ -2,7 +2,7 @@ import http from 'http'
 import { json } from './middlewares/json.js'
 import { Database } from './database.js'
 
-import { randomUUID } from 'crypto'//LIB qu tem a capacidade de criar IDS aleatórios e únicos
+import { randomUUID } from 'crypto'//LIB que tem a capacidade de criar IDS aleatórios e únicos
 
 const database = new Database()
 
@@ -18,7 +18,7 @@ const server = http.createServer( async (req, res) => {
   if(method === 'GET' && url === '/users') {
     const users = database.select('users')
 
-    return res
+    return res// rersponse
     .end(JSON.stringify(users))
   }
   
@@ -30,9 +30,9 @@ const server = http.createServer( async (req, res) => {
       name,
       email
     }
-    database.insert('users', user)
+    database.insert('users', user)// para inserir dentro de users a variavel users
     
-    return res.writeHead(201).end('Criação de usuário')// Retornar criação
+    return res.writeHead(201).end('Criação de usuário')// Retornar criação escrita
   }
 
   return res.writeHead(404).end()
