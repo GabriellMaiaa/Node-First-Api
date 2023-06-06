@@ -1,12 +1,13 @@
 import { Database } from "./database.js"
 import { randomUUID } from 'crypto'//LIB que tem a capacidade de criar IDS aleatórios e únicos
+import { buildRoutePath } from "./utils/build-route-path.js"
 
 const database = new Database()
 
 export const routes = [ 
   {
     method: 'GET',
-    path: '/users',
+    path: buildRoutePath('/users'),
     handler: (req, res) => {
       const users = database.select('users')
 
@@ -16,7 +17,7 @@ export const routes = [
   },
   {
     method: 'POST',
-    path: '/users',
+    path: buildRoutePath('/users'),
     handler: (req, res) => {
       const { email, name } = req.body// Desestruturação do Body, colocando já o nome e email como variantes por usuário
 
@@ -30,4 +31,11 @@ export const routes = [
       return res.writeHead(201).end('Criação de usuário')// Retornar criação escrita
     }
   },
+  {
+    method:'DELETE',
+    path: buildRoutePath('/users/:id'),
+    handler: (req, res) => {
+      return res.end()
+    }
+  }
 ]
