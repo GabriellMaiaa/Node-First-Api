@@ -1,6 +1,6 @@
 import fs from 'node:fs/promises'
 
-const databasePath = new URL('../db.json', import.meta.url)
+const databasePath = new URL('../db.json', import.meta.url)// Para criar o arquivo db.json
 
 export class Database {
   #database = {} // tabela

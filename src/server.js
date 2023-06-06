@@ -1,10 +1,6 @@
 import http from 'http'
-import { json } from './middlewares/json.js'
-import { Database } from './database.js'
 
-import { randomUUID } from 'crypto'//LIB que tem a capacidade de criar IDS aleatórios e únicos
-
-const database = new Database()
+import { routes } from './routes.js'
 
 //Rotas são o caminho de entrada na nossa API
 //Cabeçalho/Headers - São metadados que ajudam a ver como esse código pode ser interpretado pelo Front End
@@ -12,27 +8,13 @@ const database = new Database()
 const server = http.createServer( async (req, res) => {
   const { method, url }  = req
 
-  await json(req, res)//Middleware
+  const route = routes.find(route => {
+    return route.method === method && route.path === url
+  })
+  console.log(route)
 
-//A partir daqui começam as rotas
-  if(method === 'GET' && url === '/users') {
-    const users = database.select('users')
-
-    return res// rersponse
-    .end(JSON.stringify(users))
-  }
-  
-  if(method === 'POST' && url === '/users') {
-    const { name, email } = req.body// Desestruturação do Body, colocando já o nome e email como variantes por usuário
-
-    const user = {
-      id: randomUUID(),
-      name,
-      email
-    }
-    database.insert('users', user)// para inserir dentro de users a variavel users
-    
-    return res.writeHead(201).end('Criação de usuário')// Retornar criação escrita
+  if(route) {
+    return route.handler(req, res)
   }
 
   return res.writeHead(404).end()
